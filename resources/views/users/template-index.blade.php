@@ -39,7 +39,7 @@
                             <td>{{ $pengguna->jawatan_id }}</td>
                             <td>{{ $pengguna->unit_id }}</td>
                             <td>
-                                <a href="" class="btn btn-primary">Edit</a>
+                                <a href="{{ route('users.edit', $pengguna->id) }}" class="btn btn-primary">Edit</a>
                                 <a href="" class="btn btn-danger">Hapus</a>
                             </td>
                         </tr>
