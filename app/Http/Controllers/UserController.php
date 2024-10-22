@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index()
     {
         $pageTitle = 'Senarai Pengguna';
-        $senaraiPengguna = User::all();
+        $senaraiPengguna = User::paginate(2);
 
         // Cara 1 attach data ke template view = with()
         // return view('users.template-index')

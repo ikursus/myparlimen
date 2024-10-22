@@ -17,14 +17,11 @@
                 Senarai Pengguna
             </div>
             <div class="card-body">
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
+
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
+                            <th>Bil</th>
                             <th>Nama Pengguna</th>
                             <th>Emel</th>
                             <th>Jawatan ID</th>
@@ -33,18 +30,26 @@
                         </tr>
                     </thead>
                     <tbody>
+
+                        @foreach ( $senaraiPengguna as $pengguna )
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $pengguna->name }}</td>
+                            <td>{{ $pengguna->email }}</td>
+                            <td>{{ $pengguna->jawatan_id }}</td>
+                            <td>{{ $pengguna->unit_id }}</td>
                             <td>
                                 <a href="" class="btn btn-primary">Edit</a>
                                 <a href="" class="btn btn-danger">Hapus</a>
                             </td>
                         </tr>
+                        @endforeach
+
                     </tbody>
                 </table>
+
+                {{ $senaraiPengguna->links() }}
+
             </div>
         </div>
 
