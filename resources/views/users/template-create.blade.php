@@ -12,78 +12,95 @@
             <li class="breadcrumb-item active">Daftar Baru</li>
         </ol>
 
-        <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-table me-1"></i>
-                Maklumat Pengguna
+        <form method="POST" action="{{ route('users.store') }}">
+            @csrf
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Maklumat Pengguna
+                </div>
+
+                <div class="card-body">
+
+                    @include('layout.template-alerts')
+
+                    <div class="row mb-3">
+                        <div class="col">
+
+                            <label class="form-label">Nama Pengguna</label>
+                            <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+
+                            <label class="form-label">Email Pengguna</label>
+                            <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <label class="form-label">Password Pengguna</label>
+                            <input type="password" class="form-control" name="password">
+
+                        </div>
+                        <div class="col-md-6">
+
+                            <label class="form-label">Password (Pengesahan)</label>
+                            <input type="password" class="form-control" name="password_confirmation">
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <label class="form-label">Jawatan Pengguna</label>
+                            <select name="jawatan_id" class="form-select">
+                                <option value="">-- Sila Pilih --</option>
+
+                                @foreach ($senaraiJawatan as $jawatan)
+                                <option value="{{ $jawatan->id }}" {{ old('jawatan_id') == $jawatan->id ? 'selected' : NULL }}>
+                                    {{ $jawatan->nama }}
+                                </option>
+                                @endforeach
+
+                            </select>
+
+                        </div>
+                        <div class="col-md-6">
+
+                            <label class="form-label">Unit Pengguna</label>
+                            <select name="unit_id" class="form-select">
+                                <option value="">-- Sila Pilih --</option>
+
+                                @foreach ($senaraiUnit as $unit)
+                                <option value="{{ $unit->id }}" {{ old('unit_id') == $unit->id ? 'selected' : NULL }}>
+                                    {{ $unit->nama }}
+                                </option>
+                                @endforeach
+
+                            </select>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+
             </div>
-            <div class="card-body">
 
-                <div class="row mb-3">
-                    <div class="col">
-
-                        <label class="form-label">Nama Pengguna</label>
-                        <input type="text" class="form-control" name="name">
-
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col">
-
-                        <label class="form-label">Email Pengguna</label>
-                        <input type="email" class="form-control" name="email">
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-
-                        <label class="form-label">Password Pengguna</label>
-                        <input type="password" class="form-control" name="password">
-
-                    </div>
-                    <div class="col-md-6">
-
-                        <label class="form-label">Password (Pengesahan)</label>
-                        <input type="password" class="form-control" name="password_confirmation">
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-
-                        <label class="form-label">Jawatan Pengguna</label>
-                        <select name="jawatan_id" class="form-select">
-                            <option value="">-- Sila Pilih --</option>
-
-                            @foreach ($senaraiJawatan as $jawatan)
-                            <option value="{{ $jawatan->id }}">{{ $jawatan->name }}</option>
-                            @endforeach
-
-                        </select>
-
-                    </div>
-                    <div class="col-md-6">
-
-                        <label class="form-label">Unit Pengguna</label>
-                        <select name="unit_id" class="form-select">
-                            <option value="">-- Sila Pilih --</option>
-
-                            @foreach ($senaraiUnit as $unit)
-                            <option value="{{ $unit->id }}">{{ $unit->name }}</option>
-                            @endforeach
-
-                        </select>
-
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
+        </form>
 
     </div>
 

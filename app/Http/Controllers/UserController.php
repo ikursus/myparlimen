@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Unit;
 use App\Models\User;
+use App\Models\Jawatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -35,7 +38,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.template-create');
+        $senaraiJawatan = Jawatan::select('id', 'nama')->get();
+        $senaraiUnit = Unit::select('id', 'nama')->get();
+
+        return view('users.template-create', compact('senaraiJawatan', 'senaraiUnit'));
     }
 
     /**
@@ -43,7 +49,35 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Ambil SEMUA data daripada borang
+        // $data = $request->all();
+        // $data = $request->only('email', 'password', 'jawatan_id', 'unit_id', 'name');
+        // $data = $request->except('_token', 'email');
+        // $data = $request->input('name');
+        $data = $request->validate([
+            'name' => ['required', 'min:3'],
+            'email' => 'required|email:filter|unique:users,email',
+            'password' => 'required|min:3|confirmed',
+            'jawatan_id' => 'required|integer',
+            'unit_id' => ['required', 'integer']
+        ]);
+
+        // Simpan data kaedah Query Builder
+        // DB::table('users')->insert($data);
+
+        // Simpan data kaedah Eloquent ORM (Model) Cara 1
+        // $pengguna = new User;
+        // $pengguna->name = $data['name'];
+        // $pengguna->email = $data['email'];
+        // $pengguna->password = bcrypt($data['password']);
+        // $pengguna->jawatan_id = $data['jawatan_id'];
+        // $pengguna->unit_id = $data['unit_id'];
+        // $pengguna->save();
+
+        // Simpan data kaedah Eloquent ORM (Model) Cara 2
+        User::create($data);
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -59,7 +93,15 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Cari rekod pengguna berdasarkan ID
+        $user = User::findOrFail($id); // findOrFail hanya boleh digunakan untuk carian ID sahaja
+        // $user = User::find($id); // Gunakan find jika ingin buat condition tertentu sekiranya tiada rekod
+        // $user = User::where('id', '=', $id)->firstOrFail();
+        $senaraiJawatan = Jawatan::select('id', 'nama')->get();
+        $senaraiUnit = Unit::select('id', 'nama')->get();
+
+        return view('users.template-edit', compact('user', 'senaraiJawatan', 'senaraiUnit'));
+
     }
 
     /**
