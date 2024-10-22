@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -11,7 +12,22 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.template-index');
+        $pageTitle = 'Senarai Pengguna';
+        $senaraiPengguna = User::all();
+
+        // Cara 1 attach data ke template view = with()
+        // return view('users.template-index')
+        // ->with('pageTitle', $pageTitle)
+        // ->with('senaraiPengguna', $senaraiPengguna);
+
+        // Cara 2 attach data ke template view = array
+        // return view('users.template-index', ['
+        //     pageTitle' => $pageTitle,
+        //     'senaraiPengguna' => $senaraiPengguna
+        // ]);
+
+        // Cara 3 attach data ke template view = php compact
+        return view('users.template-index', compact('pageTitle', 'senaraiPengguna'));
     }
 
     /**
