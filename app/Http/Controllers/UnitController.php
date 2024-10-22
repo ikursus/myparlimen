@@ -11,7 +11,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        //
+        return view('unit.template-index');
     }
 
     /**
@@ -19,7 +19,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //
+        return view('unit.template-create');
     }
 
     /**

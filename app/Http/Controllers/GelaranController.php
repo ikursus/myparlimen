@@ -11,7 +11,7 @@ class GelaranController extends Controller
      */
     public function index()
     {
-        //
+        return view('gelaran.template-index');
     }
 
     /**
@@ -19,7 +19,7 @@ class GelaranController extends Controller
      */
     public function create()
     {
-        //
+        return view('gelaran.template-create');
     }
 
     /**

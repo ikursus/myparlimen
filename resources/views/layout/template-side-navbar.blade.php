@@ -39,6 +39,7 @@
             </a>
             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#jawatanCollapse" aria-expanded="false" aria-controls="jawatanCollapse">
                         Jawatan
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -49,6 +50,18 @@
                             <a class="nav-link" href="{{ route('jawatan.create') }}">Tambah Jawatan Baru</a>
                         </nav>
                     </div>
+
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#gelaranCollapse" aria-expanded="false" aria-controls="gelaranCollapse">
+                        Gelaran
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="gelaranCollapse" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('gelaran.index') }}">Senarai Gelaran</a>
+                            <a class="nav-link" href="{{ route('gelaran.create') }}">Tambah Gelaran Baru</a>
+                        </nav>
+                    </div>
+
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#partiCollapse" aria-expanded="false" aria-controls="partiCollapse">
                         Parti
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -59,6 +72,7 @@
                             <a class="nav-link" href="{{ route('parti.create') }}">Tambah Parti</a>
                         </nav>
                     </div>
+
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#unitCollapse" aria-expanded="false" aria-controls="unitCollapse">
                         Unit
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -69,12 +83,13 @@
                             <a class="nav-link" href="{{ route('unit.create') }}">Tambah Unit</a>
                         </nav>
                     </div>
+
                 </nav>
             </div>
 
             <div class="sb-sidenav-menu-heading">Akaun</div>
 
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" href="{{ route('logout') }}">
                 <div class="sb-nav-link-icon"><i class="fas fa-sign-out"></i></div>
                 Logout
             </a>

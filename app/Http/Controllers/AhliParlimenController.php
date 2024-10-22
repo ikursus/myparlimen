@@ -12,7 +12,7 @@ class AhliParlimenController extends Controller
      */
     public function index()
     {
-        //
+        return view('ahli.template-index');
     }
 
     /**
@@ -20,7 +20,7 @@ class AhliParlimenController extends Controller
      */
     public function create()
     {
-        //
+        return view('ahli.template-create');
     }
 
     /**

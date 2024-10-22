@@ -11,7 +11,7 @@ class PartiController extends Controller
      */
     public function index()
     {
-        //
+        return view('parti.template-index');
     }
 
     /**
@@ -19,7 +19,7 @@ class PartiController extends Controller
      */
     public function create()
     {
-        //
+        return view('parti.template-create');
     }
 
     /**

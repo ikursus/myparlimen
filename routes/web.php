@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PartiController;
+use App\Http\Controllers\GelaranController;
 use App\Http\Controllers\JawatanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
@@ -36,11 +38,6 @@ Route::delete('/jawatan/{id}', [JawatanController::class, 'destroy'])->name('jaw
 // Routing resource
 Route::resource('/ahli', AhliParlimenController::class);
 Route::resource('/unit', UnitController::class);
+Route::resource('/gelaran', GelaranController::class);
 Route::resource('/parti', PartiController::class)->except('show');
 Route::resource('/users', UserController::class)->only('index', 'create', 'store', 'edit', 'update', 'destroy');
-
-Route::get('contoh-array', function () {
-
-    echo config('app.name');
-
-});
