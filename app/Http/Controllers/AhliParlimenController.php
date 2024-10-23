@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Unit;
+use App\Models\Parti;
+use App\Models\Gelaran;
 use App\Models\Jawatan;
 use App\Models\AhliParlimen;
-use App\Models\Gelaran;
-use App\Models\Parti;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AhliParlimenController extends Controller
 {
@@ -75,7 +76,35 @@ class AhliParlimenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'gelaran_id' => 'required|integer',
+            'jawatan_id' => 'required|integer',
+            'parti_id' => 'required|integer',
+            'blok' => 'required',
+            'nama' => 'required',
+            'no_ic' => 'required',
+            'no_tel' => 'required',
+            'jantina' => 'required',
+            'email' => 'required|email:filter|unique:users,email',
+            'alamat' => 'required',
+            'photo' => 'nullable|sometimes|mimes:jpg,jpeg,png,gif|max:1024',
+            'status' => 'required',
+        ]);
+
+        // Semak jika ada gambar/photo yang diupload
+        if ($request->hasFile('photo'))
+        {
+            // Attachkan nama photo ke $data dan simpan dalam folder public/uploads/gambar
+            $file = $request->file('photo');
+            $data['photo'] = $file->store('gambar', 'public_uploads');
+
+        }
+
+        // Simpan data ke dalam table ahli_parlimen
+        AhliParlimen::create($data);
+
+        // Selesai simpan, redirect ke halaman senarai ahli parlimen
+        return redirect()->route('ahli.index');
     }
 
     /**
@@ -99,7 +128,7 @@ class AhliParlimenController extends Controller
         $senaraiJantina = self::senaraiJantina();
         $senaraiStatus = self::senaraiStatus();
 
-        return view('ahli.template-create', compact(
+        return view('ahli.template-edit', compact(
             'ahli',
             'senaraiJawatan',
             'senaraiUnit',
@@ -114,9 +143,44 @@ class AhliParlimenController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AhliParlimen $ahliParlimen)
+    public function update(Request $request, AhliParlimen $ahli)
     {
-        //
+        $data = $request->validate([
+            'gelaran_id' => 'required|integer',
+            'jawatan_id' => 'required|integer',
+            'parti_id' => 'required|integer',
+            'blok' => 'required',
+            'nama' => 'required',
+            'no_ic' => 'required',
+            'no_tel' => 'required',
+            'jantina' => 'required',
+            'email' => 'required|email:filter|unique:users,email,' . $ahli->id,
+            'alamat' => 'required',
+            'photo' => 'nullable|sometimes|mimes:jpg,jpeg,png,gif|max:1024',
+            'status' => 'required',
+        ]);
+
+        // Semak jika ada gambar/photo yang diupload
+        if ($request->hasFile('photo'))
+        {
+            // Attachkan nama photo ke $data dan simpan dalam folder public/uploads/gambar
+            $file = $request->file('photo');
+            $data['photo'] = $file->store('gambar', 'public_uploads');
+
+            // Semak jika gambar lama ada
+            if (!is_null($ahli->photo) && Storage::disk('public_uploads')->exists($ahli->photo))
+            {
+                // Hapus gambar lama
+                Storage::disk('public_uploads')->delete($ahli->photo);
+            }
+
+        }
+
+        // Simpan data ke dalam table ahli_parlimen
+        $ahli->update($data);
+
+        // Selesai simpan, redirect ke halaman senarai ahli parlimen
+        return redirect()->route('ahli.index');
     }
 
     /**

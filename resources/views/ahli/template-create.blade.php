@@ -81,7 +81,7 @@
                         <div class="col-md-6">
 
                             <label class="form-label">Gelaran</label>
-                            <select name="unit_id" class="form-select">
+                            <select name="gelaran_id" class="form-select">
                                 <option value="">-- Sila Pilih --</option>
 
                                 @foreach ($senaraiGelaran as $gelaran)
@@ -160,7 +160,7 @@
                                 <option value="">-- Sila Pilih --</option>
 
                                 @foreach ($senaraiStatus as $key => $value)
-                                <option value="{{ $key }}" {{ old('status') == $key ? 'selected' : NULL }}>
+                                <option value="{{ $key }}" {{ old('status') === (string)$key ? 'selected' : NULL }}>
                                     {{ $value }}
                                 </option>
                                 @endforeach

@@ -82,7 +82,7 @@
                         <div class="col-md-6">
 
                             <label class="form-label">Gelaran</label>
-                            <select name="unit_id" class="form-select">
+                            <select name="gelaran_id" class="form-select">
                                 <option value="">-- Sila Pilih --</option>
 
                                 @foreach ($senaraiGelaran as $gelaran)
@@ -161,7 +161,7 @@
                                 <option value="">-- Sila Pilih --</option>
 
                                 @foreach ($senaraiStatus as $key => $value)
-                                <option value="{{ $key }}" {{ (old('status') ?? $ahli->status) == $key ? 'selected' : NULL }}>
+                                <option value="{{ $key }}" {{ (old('status') ?? (string)$ahli->status) === (string)$key ? 'selected' : NULL }}>
                                     {{ $value }}
                                 </option>
                                 @endforeach
@@ -179,7 +179,7 @@
                             <input type="file" class="form-control" name="photo" value="{{ old('photo') }}">
                             @if (!is_null($ahli->photo))
                             <div class="mt-2">
-                                <img src="{{ asset('uploaded/ahli/' . $ahli->photo) }}" width="150" alt="">
+                                <img src="{{ asset('uploads/' . $ahli->photo) }}" width="150" alt="">
                             </div>
                             @endif
 

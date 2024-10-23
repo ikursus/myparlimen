@@ -27,6 +27,7 @@
                             <th>Nama</th>
                             <th>Gelaran</th>
                             <th>Jawatan</th>
+                            <th>Photo</th>
                             <th>Tindakan</th>
                         </tr>
                     </thead>
@@ -40,6 +41,15 @@
                             <td>{{ $ahli->nama }}</td>
                             <td>{{ $ahli->gelaran_id }}</td>
                             <td>{{ $ahli->jawatan_id }}</td>
+                            <td>
+                                @if (!is_null($ahli->photo))
+                                    <img
+                                    src="{{ asset('uploads/'.$ahli->photo) }}"
+                                    class="img-fluid img-thumbnail"
+                                    style="max-width: 80px"
+                                    >
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ route('ahli.edit', $ahli->id) }}" class="btn btn-primary">Edit</a>
 

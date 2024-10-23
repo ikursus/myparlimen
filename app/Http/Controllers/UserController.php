@@ -91,7 +91,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         // Cari rekod pengguna berdasarkan ID
         $user = User::findOrFail($id); // findOrFail hanya boleh digunakan untuk carian ID sahaja
