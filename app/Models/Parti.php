@@ -7,4 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Parti extends Model
 {
     protected $table = 'parti';
+
+    protected $fillable = [
+        'id',
+        'nama',
+        'color'
+    ];
 }

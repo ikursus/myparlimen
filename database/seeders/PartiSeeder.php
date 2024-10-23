@@ -17,19 +17,23 @@ class PartiSeeder extends Seeder
         // Kaedah 2 method create
 
         Parti::create([
-            'nama' => 'Umno'
+            'nama' => 'Umno',
+            'color' => '#FF0000'
         ]);
 
         Parti::create([
-            'nama' => 'PKR'
+            'nama' => 'PKR',
+            'color' => '#0000FF'
         ]);
 
         Parti::create([
-            'nama' => 'DAP'
+            'nama' => 'DAP',
+            'color' => '#0000FF' // light blue
         ]);
 
         Parti::create([
-            'nama' => 'Bersatu'
+            'nama' => 'Bersatu',
+            'color' => '#FF000' // red color
         ]);
     }
 }

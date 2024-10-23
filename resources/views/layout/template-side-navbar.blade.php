@@ -17,6 +17,7 @@
                 <nav class="sb-sidenav-menu-nested nav">
                     <a class="nav-link" href="{{ route('ahli.index') }}">Senarai Ahli Parlimen</a>
                     <a class="nav-link" href="{{ route('ahli.create') }}">Tambah Ahli Parlimen</a>
+                    <a class="nav-link" href="{{ route('ahli.parlimen') }}">Parlimen</a>
                 </nav>
             </div>
 

@@ -20,6 +20,7 @@ return new class extends Migration
         Schema::create('parti', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('color')->default('#000000');
             $table->timestamps();
         });
 

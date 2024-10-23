@@ -36,6 +36,7 @@ Route::put('/jawatan/{id}', [JawatanController::class, 'update'])->name('jawatan
 Route::delete('/jawatan/{id}', [JawatanController::class, 'destroy'])->name('jawatan.destroy');
 
 // Routing resource
+Route::get('ahli/parlimen', [AhliParlimenController::class, 'parlimen'])->name('ahli.parlimen');
 Route::resource('/ahli', AhliParlimenController::class);
 Route::resource('/unit', UnitController::class);
 Route::resource('/gelaran', GelaranController::class);

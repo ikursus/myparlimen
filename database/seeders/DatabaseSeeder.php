@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             JawatanSeeder::class,
             PartiSeeder::class,
             UnitSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            AhliParlimenSeeder::class,
         ]);
     }
 }

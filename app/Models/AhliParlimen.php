@@ -22,4 +22,25 @@ class AhliParlimen extends Model
         'alamat',
         'status'
     ];
+
+    // Relation table ahli_parlimen dengan table jawatan
+    // hubungannya adalah one to one
+    public function relationJawatan()
+    {
+        return $this->belongsTo(Jawatan::class, 'jawatan_id', 'id');
+    }
+
+    // Relation table ahli_parlimen dengan table gelaran
+    // hubungannya adalah one to one
+    public function relationGelaran()
+    {
+        return $this->belongsTo(Gelaran::class, 'gelaran_id', 'id');
+    }
+
+    // Relation table ahli_parlimen dengan table parti
+    // hubungannya adalah one to one
+    public function relationParti()
+    {
+        return $this->belongsTo(Parti::class, 'parti_id', 'id');
+    }
 }

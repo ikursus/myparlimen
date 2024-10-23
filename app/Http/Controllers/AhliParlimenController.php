@@ -42,7 +42,16 @@ class AhliParlimenController extends Controller
     public function index()
     {
         $pageTitle = 'Senarai Pengguna';
-        $senaraiAhliParlimen = AhliParlimen::paginate(5);
+        // $senaraiAhliParlimen = AhliParlimen::paginate(5);
+
+        // Cara relation daripada table ahli_parlimen kepada table gelaran
+        // dan table jawatan menerusi kaedah join table
+        // $senaraiAhliParlimen = AhliParlimen::join('gelaran', 'gelaran.id', '=', 'ahli_parlimen.gelaran_id')
+        //     ->join('jawatan', 'jawatan.id', '=', 'ahli_parlimen.jawatan_id')
+        //     ->select('ahli_parlimen.*', 'gelaran.nama as nama_gelaran', 'jawatan.nama as nama_jawatan')
+        //     ->paginate(5);
+        $senaraiAhliParlimen = AhliParlimen::with('relationGelaran', 'relationJawatan', 'relationParti')
+        ->paginate(5);
 
         return view('ahli.template-index', compact('pageTitle', 'senaraiAhliParlimen'));
     }
@@ -189,5 +198,21 @@ class AhliParlimenController extends Controller
     public function destroy(AhliParlimen $ahliParlimen)
     {
         //
+    }
+
+    public function parlimen()
+    {
+        $ahliParlimen = AhliParlimen::with('relationParti')
+        ->get()
+        ->map(function($ahli) {
+            return [
+                'id' => $ahli->id,
+                'name' => $ahli->nama,
+                'label' => $ahli->blok,
+                'parti_color' => $ahli->relationParti->color ?? '#000000',
+            ];
+        });
+
+        return view('ahli.template-parlimen', compact('ahliParlimen'));
     }
 }

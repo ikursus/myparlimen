@@ -39,8 +39,10 @@
                             <td>{{ $ahli->blok }}</td>
                             <td>{{ $ahli->parti_id }}</td>
                             <td>{{ $ahli->nama }}</td>
-                            <td>{{ $ahli->gelaran_id }}</td>
-                            <td>{{ $ahli->jawatan_id }}</td>
+                            {{-- <td>{{ $ahli->nama_gelaran }}</td> --}}
+                            <td>{{ $ahli->relationGelaran->nama }}</td>
+                            {{-- <td>{{ $ahli->nama_jawatan }}</td> --}}
+                            <td>{{ $ahli->relationJawatan->nama }}</td>
                             <td>
                                 @if (!is_null($ahli->photo))
                                     <img
