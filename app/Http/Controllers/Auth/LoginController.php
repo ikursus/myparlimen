@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -14,9 +15,25 @@ class LoginController extends Controller
         return view('template-login');
     }
 
-    public function authenticate()
+    public function authenticate(Request $request)
     {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            //return redirect()->intended('dashboard');
+            return redirect()->route('panel.dashboard');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+
         // return redirect('/dashboard');
-        return redirect()->route('panel.dashboard');
+
     }
 }

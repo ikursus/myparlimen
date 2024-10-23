@@ -10,6 +10,7 @@ use App\Http\Controllers\JawatanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AhliParlimenController;
+use App\Http\Controllers\ApiPostController;
 
 // Invokable routing kerana ada 1 method/function sahaja
 Route::get('/', HomeController::class)->name('homepage');
@@ -42,3 +43,5 @@ Route::resource('/unit', UnitController::class);
 Route::resource('/gelaran', GelaranController::class);
 Route::resource('/parti', PartiController::class)->except('show');
 Route::resource('/users', UserController::class)->only('index', 'create', 'store', 'edit', 'update', 'destroy');
+
+

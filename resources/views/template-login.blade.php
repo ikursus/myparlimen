@@ -28,11 +28,11 @@
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
+                                                <input class="form-control" name="email" type="email" placeholder="name@example.com" />
                                                 <label for="inputEmail">Email address</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
+                                                <input class="form-control" name="password" type="password" placeholder="Password" />
                                                 <label for="inputPassword">Password</label>
                                             </div>
                                             <div class="form-check mb-3">

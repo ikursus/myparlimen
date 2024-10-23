@@ -11,6 +11,10 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('template-dashboard');
+        // $token = $request->user()->createToken('Ahmad')->plainTextToken;
+
+        //$token->plainTextToken;
+
+        return view('template-dashboard', compact('token'));
     }
 }
