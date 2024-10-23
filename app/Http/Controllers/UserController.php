@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $pageTitle = 'Senarai Pengguna';
-        $senaraiPengguna = User::paginate(2);
+        $senaraiPengguna = User::paginate(5);
 
         // Cara 1 attach data ke template view = with()
         // return view('users.template-index')
@@ -109,7 +109,28 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Buat validasi dan ambil data
+        $data = $request->validate([
+            'name' => ['required', 'min:3'],
+            'email' => 'required|email:filter|unique:users,email,' . $id,
+            'jawatan_id' => 'required|integer',
+            'unit_id' => ['required', 'integer']
+        ]);
+
+        // Semak jika ruang password diisi untuk ditukar
+        if ($request->has('password') && $request->filled('password'))
+        {
+            $request->validate(['password' => 'min:3|confirmed']);
+
+            // Attachkan password baru ke $data
+            $data['password'] = $request->password;
+        }
+
+        // Cara rekod user yang perlu dikemaskini berdasarkan ID
+        $user = User::findOrFail($id);
+        $user->update($data);
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -117,6 +138,10 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Cari rekod pengguna berdasarkan ID
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('users.index');
     }
 }

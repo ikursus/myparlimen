@@ -40,7 +40,21 @@
                             <td>{{ $pengguna->unit_id }}</td>
                             <td>
                                 <a href="{{ route('users.edit', $pengguna->id) }}" class="btn btn-primary">Edit</a>
-                                <a href="" class="btn btn-danger">Hapus</a>
+
+                                <form method="POST" action="{{ route('users.destroy', $pengguna->id) }}">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    @method('DELETE')
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-danger"
+                                        onclick="return confirm('Adakah anda pasti ingin hapus data {{ $pengguna->name }}?')">
+                                        Hapus
+                                    </button>
+
+                                </form>
+
                             </td>
                         </tr>
                         @endforeach

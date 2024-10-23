@@ -2,17 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Unit;
+use App\Models\Jawatan;
 use App\Models\AhliParlimen;
+use App\Models\Gelaran;
+use App\Models\Parti;
 use Illuminate\Http\Request;
 
 class AhliParlimenController extends Controller
 {
+    public function senaraiBlok()
+    {
+        return [
+            'kerajaan' => 'Kerajaan',
+            'pembangkang' => 'Pembangkang',
+        ];
+    }
+
+    public function senaraiJantina()
+    {
+        return [
+            'lelaki' => 'Lelaki',
+            'perempuan' => 'Perempuan',
+        ];
+    }
+
+    public function senaraiStatus()
+    {
+        return [
+            '1' => 'Aktif',
+            '0' => 'Tidak Aktif',
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('ahli.template-index');
+        $pageTitle = 'Senarai Pengguna';
+        $senaraiAhliParlimen = AhliParlimen::paginate(5);
+
+        return view('ahli.template-index', compact('pageTitle', 'senaraiAhliParlimen'));
     }
 
     /**
@@ -20,7 +51,23 @@ class AhliParlimenController extends Controller
      */
     public function create()
     {
-        return view('ahli.template-create');
+        $senaraiJawatan = Jawatan::select('id', 'nama')->get();
+        $senaraiUnit = Unit::select('id', 'nama')->get();
+        $senaraiGelaran = Gelaran::select('id', 'nama')->get();
+        $senaraiParti = Parti::select('id', 'nama')->get();
+        $senaraiBlok = self::senaraiBlok();
+        $senaraiJantina = self::senaraiJantina();
+        $senaraiStatus = self::senaraiStatus();
+
+        return view('ahli.template-create', compact(
+            'senaraiJawatan',
+            'senaraiUnit',
+            'senaraiGelaran',
+            'senaraiParti',
+            'senaraiBlok',
+            'senaraiJantina',
+            'senaraiStatus'
+        ));
     }
 
     /**
@@ -42,9 +89,26 @@ class AhliParlimenController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AhliParlimen $ahliParlimen)
+    public function edit(AhliParlimen $ahli)
     {
-        //
+        $senaraiJawatan = Jawatan::select('id', 'nama')->get();
+        $senaraiUnit = Unit::select('id', 'nama')->get();
+        $senaraiGelaran = Gelaran::select('id', 'nama')->get();
+        $senaraiParti = Parti::select('id', 'nama')->get();
+        $senaraiBlok = self::senaraiBlok();
+        $senaraiJantina = self::senaraiJantina();
+        $senaraiStatus = self::senaraiStatus();
+
+        return view('ahli.template-create', compact(
+            'ahli',
+            'senaraiJawatan',
+            'senaraiUnit',
+            'senaraiGelaran',
+            'senaraiParti',
+            'senaraiBlok',
+            'senaraiJantina',
+            'senaraiStatus'
+        ));
     }
 
     /**

@@ -45,22 +45,24 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-md-6">
 
                             <label class="form-label">Password Pengguna</label>
                             <input type="password" class="form-control" name="password">
+                            <span class="form-text">Kosongkan jika tidak ingin diubah.</span>
 
                         </div>
                         <div class="col-md-6">
 
                             <label class="form-label">Password (Pengesahan)</label>
                             <input type="password" class="form-control" name="password_confirmation">
+                            <span class="form-text">Kosongkan jika tidak ingin diubah.</span>
 
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-md-6">
 
                             <label class="form-label">Jawatan Pengguna</label>

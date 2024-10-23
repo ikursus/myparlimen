@@ -5,15 +5,16 @@
 <main>
     <div class="container-fluid px-4">
 
-        <h1 class="mt-4">Daftar Ahli Parlimen Baru</h1>
+        <h1 class="mt-4">Kemaskini Ahli Parlimen</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item">Dashboard</li>
             <li class="breadcrumb-item">Ahli Parlimen</li>
-            <li class="breadcrumb-item active">Daftar Baru</li>
+            <li class="breadcrumb-item active">Kemaskini</li>
         </ol>
 
-        <form method="POST" action="{{ route('ahli.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('ahli.update', $ahli->id) }}" enctype="multipart/form-data">
             @csrf
+            @method('PATCH')
 
             <div class="card mb-4">
                 <div class="card-header">
@@ -33,7 +34,7 @@
                                 <option value="">-- Sila Pilih --</option>
 
                                 @foreach ($senaraiParti as $parti)
-                                <option value="{{ $parti->id }}" {{ old('parti_id') == $parti->id ? 'selected' : NULL }}>
+                                <option value="{{ $parti->id }}" {{ (old('parti_id') ?? $ahli->parti_id) == $parti->id ? 'selected' : NULL }}>
                                     {{ $parti->nama }}
                                 </option>
                                 @endforeach
@@ -48,7 +49,7 @@
                                 <option value="">-- Sila Pilih --</option>
 
                                 @foreach ($senaraiBlok as $key => $value)
-                                <option value="{{ $key }}" {{ old('blok') == $key ? 'selected' : NULL }}>
+                                <option value="{{ $key }}" {{ (old('blok') ?? $ahli->blok) == $key ? 'selected' : NULL }}>
                                     {{ $value }}
                                 </option>
                                 @endforeach
@@ -62,7 +63,7 @@
                         <div class="col">
 
                             <label class="form-label">Nama</label>
-                            <input type="text" class="form-control" name="nama" value="{{ old('nama') }}">
+                            <input type="text" class="form-control" name="nama" value="{{ old('nama') ?? $ahli->nama }}">
 
                         </div>
                     </div>
@@ -71,7 +72,7 @@
                         <div class="col">
 
                             <label class="form-label">No. KP</label>
-                            <input type="text" class="form-control" name="no_ic" value="{{ old('no_ic') }}">
+                            <input type="text" class="form-control" name="no_ic" value="{{ old('no_ic') ?? $ahli->no_ic }}">
 
                         </div>
                     </div>
@@ -85,7 +86,7 @@
                                 <option value="">-- Sila Pilih --</option>
 
                                 @foreach ($senaraiGelaran as $gelaran)
-                                <option value="{{ $gelaran->id }}" {{ old('gelaran_id') == $gelaran->id ? 'selected' : NULL }}>
+                                <option value="{{ $gelaran->id }}" {{ (old('gelaran_id') ?? $ahli->gelaran_id) == $gelaran->id ? 'selected' : NULL }}>
                                     {{ $gelaran->nama }}
                                 </option>
                                 @endforeach
@@ -101,7 +102,7 @@
                                 <option value="">-- Sila Pilih --</option>
 
                                 @foreach ($senaraiJawatan as $jawatan)
-                                <option value="{{ $jawatan->id }}" {{ old('jawatan_id') == $jawatan->id ? 'selected' : NULL }}>
+                                <option value="{{ $jawatan->id }}" {{ (old('jawatan_id') ?? $ahli->jawatan_id) == $jawatan->id ? 'selected' : NULL }}>
                                     {{ $jawatan->nama }}
                                 </option>
                                 @endforeach
@@ -115,14 +116,14 @@
                         <div class="col-md-6">
 
                             <label class="form-label">No. Telefon</label>
-                            <input type="text" class="form-control" name="no_tel" value="{{ old('no_tel') }}">
+                            <input type="text" class="form-control" name="no_tel" value="{{ old('no_tel') ?? $ahli->no_tel }}">
 
                         </div>
 
                         <div class="col-md-6">
 
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                            <input type="email" class="form-control" name="email" value="{{ old('email') ?? $ahli->email }}">
 
                         </div>
                     </div>
@@ -131,7 +132,7 @@
                         <div class="col">
 
                             <label class="form-label">Alamat</label>
-                            <textarea name="alamat" class="form-control">{{ old('alamat') }}</textarea>
+                            <textarea name="alamat" class="form-control">{{ old('alamat') ?? $ahli->alamat }}</textarea>
 
                         </div>
                     </div>
@@ -144,7 +145,7 @@
                                 <option value="">-- Sila Pilih --</option>
 
                                 @foreach ($senaraiJantina as $key => $value)
-                                <option value="{{ $key }}" {{ old('jantina') == $key ? 'selected' : NULL }}>
+                                <option value="{{ $key }}" {{ (old('jantina') ?? $ahli->jantina) == $key ? 'selected' : NULL }}>
                                     {{ $value }}
                                 </option>
                                 @endforeach
@@ -160,7 +161,7 @@
                                 <option value="">-- Sila Pilih --</option>
 
                                 @foreach ($senaraiStatus as $key => $value)
-                                <option value="{{ $key }}" {{ old('status') == $key ? 'selected' : NULL }}>
+                                <option value="{{ $key }}" {{ (old('status') ?? $ahli->status) == $key ? 'selected' : NULL }}>
                                     {{ $value }}
                                 </option>
                                 @endforeach
@@ -176,6 +177,11 @@
 
                             <label class="form-label">Gambar</label>
                             <input type="file" class="form-control" name="photo" value="{{ old('photo') }}">
+                            @if (!is_null($ahli->photo))
+                            <div class="mt-2">
+                                <img src="{{ asset('uploaded/ahli/' . $ahli->photo) }}" width="150" alt="">
+                            </div>
+                            @endif
 
                         </div>
                     </div>
